@@ -54,12 +54,17 @@ class App extends React.Component {
     return (
       <React.Fragment>
         <h1>JobTracker</h1>
-        <JobMetrics jobs={jobs} />
-        <JobListings jobs={jobs} />
+        <div className="main-display">
+          <JobMetrics jobs={jobs} />
+          <JobListings jobs={jobs} />
+        </div>
         {addJobModal &&
           <AddJobModal addJob={this.addJob} />
         }
-        <button onClick={this.toggleAddJobModal}>Add Job</button>
+        <div className="buttons">
+          <button className="add-job-button" onClick={this.toggleAddJobModal}>Add Job</button>
+          <button className="delete-all-jobs-button" onClick={() => {}}>Delete All Jobs</button>
+        </div>
       </React.Fragment>
     )
   }

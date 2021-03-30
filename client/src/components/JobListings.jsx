@@ -1,7 +1,9 @@
 import React from 'react';
 
-const JobListings = ({jobs}) => {
-  return (<div>Job Listings</div>)
-}
+import Job from './Job.jsx';
+
+const JobListings = ({ jobs }) => (
+  <div className="job-listings">{jobs.map(job => <Job key={job._id} job={job} />)}</div>
+)
 
 export default JobListings;

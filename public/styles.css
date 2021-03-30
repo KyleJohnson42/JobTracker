@@ -1,0 +1,30 @@
+h1 {
+  text-align: center;
+}
+
+.main-display {
+  width: 90%;
+  margin-left: 5%;
+  margin-right: 5%;
+  height: 75vh;
+  display: flex;
+}
+
+.job-metrics {
+  width: 33%;
+  border: 1px solid gray;
+}
+
+.job-listings {
+  width: 66%;
+  border: 1px solid gray;
+  overflow: scroll;
+}
+
+.buttons {
+  width: 90%;
+  margin-left: 5%;
+  margin-right: 5%;
+  display: flex;
+  justify-content: flex-end;
+}
