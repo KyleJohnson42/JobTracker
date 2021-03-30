@@ -17,34 +17,28 @@ Once the project moves into development, the press release can be used as a touc
  -->
 
 ## Heading ##
-  > Name the product in a way the reader (i.e. your target customers) will understand.
+  JobTracker
 
 ## Sub-Heading ##
-  > Describe who the market for the product is and what benefit they get. One sentence only underneath the title.
+  An application designed to help job seekers track their progress and keep motivation high.
 
 ## Summary ##
-  > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.
+  JobTracker takes in details that you provide about job postings and keeps a list of all the jobs you have applied to. It also allows you to note which stage of the job search process you reached with that particular posting, and automatically calculates what percentage of applications have led to phone screens, what percentage of phone screens have led to interviews, and so on. With JobTracker, it's now so simple to watch the progress of your job search and see your sticking points backed by real numbers!
 
 ## Problem ##
-  > Describe the problem your product solves.
   The job search can be a tedious process with no sense of progress. Job seekers often feel like they're throwing resumes into the void, and lose hope as a result.
 
 ## Solution ##
-  > Describe how your product elegantly solves the problem.
   In reality, the job search is just a numbers game; each application brings you a little closer to your goal. JobTracker helps you visualize this process, track your progress, identify problem spots, and keep your motivation up during the search!
 
 ## Quote from You ##
-  > A quote from a spokesperson in your company.
   "Unemployment is a burden that weighs down so many people today, and finding a way out of it is so often a mindless grind. JobTracker is designed to show those in the midst of it that each small step eventually adds up!"
 
 ## How to Get Started ##
-  > Describe how easy it is to get started.
   Using JobTracker is as simple as typing in a few brief pieces of info about the jobs you are interested in. From there, you can mark which stage of the application process you have reached for that particular posting, and JobTracker will automatically update and display your totals and your conversion rates to the different stages of the job search.
 
 ## Customer Quote ##
-  > Provide a quote from a hypothetical customer that describes how they experienced the benefit.
-  "During my last job search, tracking my applications by hand seemed like a waste of time, so I didn't track them at all. I eventually lost count of the number of resumes I sent out, and the search started to feel endless. This time around, I'm using JobTracker, and seeing those totals grow each day really makes me feel like I'm doing something right and motivates me to keep going!"
+  "During my last job search, tracking my applications by hand seemed like a waste of time, so I didn't track them at all. I eventually lost count of the number of resumes I sent out, and the search started to feel endless. This time around, I'm using JobTracker, and seeing those totals grow each day really makes me feel like I'm doing something right and motivates me to keep going! The numbers even showed that I rarely made it past phone screens, so I was able to focus my efforts on nailing those."
 
 ## Closing and Call to Action ##
-  > Wrap it up and give pointers where the reader should go next.
   JobTracker is a free service dedicated to reaching out to help those who are struggling. If you want that motivation, or if you just want a simple, convenient way to track your applications, sign up today!
