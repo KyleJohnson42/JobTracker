@@ -10,6 +10,12 @@ class App extends React.Component {
     super(props);
     this.state = {
       jobs: [],
+      jobsNotYetApplied: [],
+      jobsApplied: [],
+      jobsPhone: [],
+      jobsInterview: [],
+      jobsOffer: [],
+      displayedJobs: [],
       addJobModal: false
     }
 
@@ -23,13 +29,45 @@ class App extends React.Component {
     axios.get('/api/jobs')
     .then(results => this.setState({
       jobs: results.data
-    }), callback)
+    }, callback))
     .catch(error => console.error(error));
   }
 
   updateMetrics() {
     const { jobs } = this.state;
-    console.log(jobs);
+
+    let jobsNotYetApplied = [];
+    let jobsApplied = [];
+    let jobsPhone = [];
+    let jobsInterview = [];
+    let jobsOffer = [];
+
+    for (let i = 0; i < jobs.length; i++) {
+      let job = jobs[i];
+
+      if (!job.applied) {
+        jobsNotYetApplied.push(job);
+      } else {
+        jobsApplied.push(job);
+      }
+      if (job.phone) {
+        jobsPhone.push(job);
+      }
+      if (job.interview) {
+        jobsInterview.push(job);
+      }
+      if (job.offer) {
+        jobsOffer.push(job);
+      }
+    }
+
+    this.setState({
+      jobsNotYetApplied,
+      jobsApplied,
+      jobsPhone,
+      jobsInterview,
+      jobsOffer
+    });
   }
 
   addJob(job) {
