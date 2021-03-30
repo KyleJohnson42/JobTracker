@@ -17,8 +17,13 @@ db.once('open', function() {
 
   const Job = mongoose.model('Job', jobSchema);
 
+  db.addJob = (job, callback) => {
+    const newJob = new Job(job);
+    newJob.save()
+    .then(results => callback(null, results))
+    .catch(error => callback(error, null));
+  }
+
 });
 
-module.exports = {
-  db: db
-}
+module.exports = db;

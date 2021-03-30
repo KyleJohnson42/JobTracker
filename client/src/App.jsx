@@ -20,15 +20,22 @@ class App extends React.Component {
   }
 
   getAllJobs(callback = () => {}) {
-
+    axios.get('/api/jobs')
+    .then(results => this.setState({
+      jobs: results
+    }), callback)
+    .catch(error => console.error(error));
   }
 
   updateMetrics() {
-
+    const { jobs } = this.state;
+    console.log(jobs);
   }
 
-  addJob() {
-
+  addJob(job) {
+    axios.post('/api/jobs', job)
+    .then(() => this.getAllJobs(this.updateMetrics))
+    .catch(error => console.error(error));
   }
 
   toggleAddJobModal() {

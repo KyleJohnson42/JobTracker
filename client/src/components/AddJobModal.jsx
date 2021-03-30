@@ -13,6 +13,9 @@ class AddJobModal extends React.Component {
       interview: false,
       offer: false
     }
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(event, field) {
@@ -53,11 +56,18 @@ class AddJobModal extends React.Component {
     }
   }
 
+  handleSubmit(event) {
+    const { addJob } = this.props;
+
+    event.preventDefault();
+    addJob(this.state);
+  }
+
   render() {
     const { addJob } = this.props;
 
     return (
-      <form className="add-job modal" onSubmit={() => { addJob(this.state) }}>
+      <form className="add-job modal" onSubmit={this.handleSubmit}>
         <label htmlFor="title">Job Title:
           <input type="text" name="title" onChange={event => { this.handleChange(event, 'title') }}></input>
         </label><br />
@@ -82,6 +92,7 @@ class AddJobModal extends React.Component {
         <label htmlFor="offer">Have you received an offer?
           <input type="checkbox" name="offer" onChange={event => { this.handleChange(event, 'offer') }}></input>
         </label><br />
+        <input type="submit"></input>
       </form>
     )
   }
