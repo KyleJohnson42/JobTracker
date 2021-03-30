@@ -10,8 +10,14 @@ app.use(express.static(path.join(__dirname, '..', 'public')));
 app.use(express.json());
 
 app.get('/api/jobs', (req, res) => {
-
-})
+  db.getAllJobs((err, results) => {
+    if (err) {
+      res.status(404).send(err);
+    } else {
+      res.status(200).send(results)
+    }
+  });
+});
 
 app.post('/api/jobs', (req, res) => {
   db.addJob(req.body, (err, results) => {
@@ -21,7 +27,7 @@ app.post('/api/jobs', (req, res) => {
       res.status(200).send(results)
     }
   })
-})
+});
 
 app.listen(PORT, () => {
   console.log(`Listening at localhost:${PORT}!`);

@@ -17,6 +17,12 @@ db.once('open', function() {
 
   const Job = mongoose.model('Job', jobSchema);
 
+  db.getAllJobs = callback => {
+    Job.find({})
+    .then(results => callback(null, results))
+    .catch(error => callback(error, null));
+  }
+
   db.addJob = (job, callback) => {
     const newJob = new Job(job);
     newJob.save()

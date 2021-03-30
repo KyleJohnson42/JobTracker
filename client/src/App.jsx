@@ -22,7 +22,7 @@ class App extends React.Component {
   getAllJobs(callback = () => {}) {
     axios.get('/api/jobs')
     .then(results => this.setState({
-      jobs: results
+      jobs: results.data
     }), callback)
     .catch(error => console.error(error));
   }
