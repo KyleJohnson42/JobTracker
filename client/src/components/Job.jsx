@@ -1,8 +1,11 @@
 import React from 'react';
 
+import ProgressBar from './ProgressBar.jsx';
+
 const Job = ({ job }) => (
   <div className="job">
-    {`${job.title} at ${job.company}`}
+    <a href={job.link}>{`${job.title} at ${job.company}`}</a>
+    <ProgressBar job={job} />
   </div>
 )
 

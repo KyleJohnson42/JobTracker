@@ -21,6 +21,11 @@ h1 {
   overflow: scroll;
 }
 
+.job {
+  display: flex;
+  width: 100%;
+}
+
 .buttons {
   width: 90%;
   margin-left: 5%;
