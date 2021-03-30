@@ -12,7 +12,8 @@ db.once('open', function() {
     applied: Boolean,
     phone: Boolean,
     interview: Boolean,
-    offer: Boolean
+    offer: Boolean,
+    active: Boolean
   });
 
   const Job = mongoose.model('Job', jobSchema);

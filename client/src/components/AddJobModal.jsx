@@ -11,7 +11,8 @@ class AddJobModal extends React.Component {
       applied: false,
       phone: false,
       interview: false,
-      offer: false
+      offer: false,
+      active: true
     }
 
     this.handleChange = this.handleChange.bind(this);
@@ -64,36 +65,39 @@ class AddJobModal extends React.Component {
   }
 
   render() {
-    const { addJob } = this.props;
+    const { addJob, toggleAddJobModal } = this.props;
 
     return (
-      <form className="add-job modal" onSubmit={this.handleSubmit}>
-        <label htmlFor="title">Job Title:
-          <input type="text" name="title" onChange={event => { this.handleChange(event, 'title') }}></input>
-        </label><br />
-        <label htmlFor="company">Company:
-          <input type="text" name="company" onChange={event => { this.handleChange(event, 'company') }}></input>
-        </label><br />
-        <label htmlFor="link">Link to Job Posting:
-          <input type="url" name="link" onChange={event => { this.handleChange(event, 'link') }}></input>
-        </label><br />
-        <label htmlFor="notes">Additional Notes:
-          <textarea name="notes" onChange={event => { this.handleChange(event, 'notes') }}></textarea>
-        </label><br />
-        <label htmlFor="applied">Have you applied to this job?
-          <input type="checkbox" name="applied" onChange={event => { this.handleChange(event, 'applied') }}></input>
-        </label><br />
-        <label htmlFor="phone">Have you been asked for a phone screen?
-          <input type="checkbox" name="phone" onChange={event => { this.handleChange(event, 'phone') }}></input>
-        </label><br />
-        <label htmlFor="interview">Have you been asked for an interview?
-          <input type="checkbox" name="interview" onChange={event => { this.handleChange(event, 'interview') }}></input>
-        </label><br />
-        <label htmlFor="offer">Have you received an offer?
-          <input type="checkbox" name="offer" onChange={event => { this.handleChange(event, 'offer') }}></input>
-        </label><br />
-        <input type="submit"></input>
-      </form>
+      <React.Fragment>
+        <form className="add-job modal" onSubmit={this.handleSubmit}>
+          <label htmlFor="title">Job Title:
+            <input type="text" name="title" onChange={event => { this.handleChange(event, 'title') }}></input>
+          </label><br />
+          <label htmlFor="company">Company:
+            <input type="text" name="company" onChange={event => { this.handleChange(event, 'company') }}></input>
+          </label><br />
+          <label htmlFor="link">Link to Job Posting:
+            <input type="url" name="link" onChange={event => { this.handleChange(event, 'link') }}></input>
+          </label><br />
+          <label htmlFor="notes">Additional Notes:
+            <textarea name="notes" onChange={event => { this.handleChange(event, 'notes') }}></textarea>
+          </label><br />
+          <label htmlFor="applied">Have you applied to this job?
+            <input type="checkbox" name="applied" onChange={event => { this.handleChange(event, 'applied') }}></input>
+          </label><br />
+          <label htmlFor="phone">Have you been asked for a phone screen?
+            <input type="checkbox" name="phone" onChange={event => { this.handleChange(event, 'phone') }}></input>
+          </label><br />
+          <label htmlFor="interview">Have you been asked for an interview?
+            <input type="checkbox" name="interview" onChange={event => { this.handleChange(event, 'interview') }}></input>
+          </label><br />
+          <label htmlFor="offer">Have you received an offer?
+            <input type="checkbox" name="offer" onChange={event => { this.handleChange(event, 'offer') }}></input>
+          </label><br />
+          <input type="submit"></input>
+        </form>
+        <div className="overlay" onClick={toggleAddJobModal} />
+      </React.Fragment>
     )
   }
 }

@@ -59,7 +59,7 @@ class App extends React.Component {
           <JobListings jobs={jobs} />
         </div>
         {addJobModal &&
-          <AddJobModal addJob={this.addJob} />
+          <AddJobModal addJob={this.addJob} toggleAddJobModal={this.toggleAddJobModal} />
         }
         <div className="buttons">
           <button className="add-job-button" onClick={this.toggleAddJobModal}>Add Job</button>
