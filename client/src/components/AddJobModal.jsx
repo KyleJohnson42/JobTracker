@@ -1,7 +1,90 @@
 import React from 'react';
 
-const AddJobModal = ({addJob}) => {
-  return (<div>Add Job Modal</div>)
+class AddJobModal extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      title: '',
+      company: '',
+      link: '',
+      notes: '',
+      applied: false,
+      phone: false,
+      interview: false,
+      offer: false
+    }
+  }
+
+  handleChange(event, field) {
+    let value = event.target.value;
+
+    if (field === 'title') {
+      this.setState({
+        title: value
+      });
+    } else if (field === 'company') {
+      this.setState({
+        company: value
+      });
+    } else if (field === 'link') {
+      this.setState({
+        link: value
+      });
+    } else if (field === 'notes') {
+      this.setState({
+        notes: value
+      });
+    } else if (field === 'applied') {
+      this.setState({
+        applied: !this.state.applied
+      });
+    } else if (field === 'phone') {
+      this.setState({
+        phone: !this.state.phone
+      });
+    } else if (field === 'interview') {
+      this.setState({
+        interview: !this.state.interview
+      });
+    } else if (field === 'offer') {
+      this.setState({
+        offer: !this.state.offer
+      });
+    }
+  }
+
+  render() {
+    const { addJob } = this.props;
+
+    return (
+      <form className="add-job modal" onSubmit={() => { addJob(this.state) }}>
+        <label htmlFor="title">Job Title:
+          <input type="text" name="title" onChange={event => { this.handleChange(event, 'title') }}></input>
+        </label><br />
+        <label htmlFor="company">Company:
+          <input type="text" name="company" onChange={event => { this.handleChange(event, 'company') }}></input>
+        </label><br />
+        <label htmlFor="link">Link to Job Posting:
+          <input type="url" name="link" onChange={event => { this.handleChange(event, 'link') }}></input>
+        </label><br />
+        <label htmlFor="notes">Additional Notes:
+          <textarea name="notes" onChange={event => { this.handleChange(event, 'notes') }}></textarea>
+        </label><br />
+        <label htmlFor="applied">Have you applied to this job?
+          <input type="checkbox" name="applied" onChange={event => { this.handleChange(event, 'applied') }}></input>
+        </label><br />
+        <label htmlFor="phone">Have you been asked for a phone screen?
+          <input type="checkbox" name="phone" onChange={event => { this.handleChange(event, 'phone') }}></input>
+        </label><br />
+        <label htmlFor="interview">Have you been asked for an interview?
+          <input type="checkbox" name="interview" onChange={event => { this.handleChange(event, 'interview') }}></input>
+        </label><br />
+        <label htmlFor="offer">Have you received an offer?
+          <input type="checkbox" name="offer" onChange={event => { this.handleChange(event, 'offer') }}></input>
+        </label><br />
+      </form>
+    )
+  }
 }
 
 export default AddJobModal;
