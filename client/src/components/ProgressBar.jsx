@@ -26,7 +26,7 @@ const ProgressBar = ({ job }) => {
   return (
     <React.Fragment>
       <div style={barStyle} />
-      <span>{text}</span>
+      <div className="job-stage">{text}</div>
     </React.Fragment>
   )
 }

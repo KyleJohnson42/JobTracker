@@ -57,6 +57,10 @@ h1 {
   border: 1px solid gray;
 }
 
+.job-link, .job-stage {
+  width: 33%;
+}
+
 .buttons {
   width: 90%;
   margin-left: 5%;
