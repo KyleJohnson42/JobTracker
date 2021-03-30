@@ -33,7 +33,7 @@ class App extends React.Component {
     .catch(error => console.error(error));
   }
 
-  updateMetrics() {
+  updateMetrics(display = this.state.jobs) {
     const { jobs } = this.state;
 
     let jobsNotYetApplied = [];
@@ -66,7 +66,8 @@ class App extends React.Component {
       jobsApplied,
       jobsPhone,
       jobsInterview,
-      jobsOffer
+      jobsOffer,
+      displayedJobs: display
     });
   }
 
@@ -87,14 +88,14 @@ class App extends React.Component {
   }
 
   render() {
-    const { jobs, addJobModal } = this.state;
+    const { jobs, jobsNotYetApplied, jobsApplied, jobsPhone, jobsInterview, jobsOffer, displayedJobs, addJobModal } = this.state;
 
     return (
       <React.Fragment>
         <h1>JobTracker</h1>
         <div className="main-display">
-          <JobMetrics jobs={jobs} />
-          <JobListings jobs={jobs} />
+          <JobMetrics jobs={jobs.length} jobsNotYetApplied={jobsNotYetApplied.length} jobsApplied={jobsApplied.length} jobsPhone={jobsPhone.length} jobsInterview={jobsInterview.length} jobsOffer={jobsOffer.length} />
+          <JobListings jobs={displayedJobs} />
         </div>
         {addJobModal &&
           <AddJobModal addJob={this.addJob} toggleAddJobModal={this.toggleAddJobModal} />

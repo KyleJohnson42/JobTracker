@@ -36,6 +36,12 @@ h1 {
   border: 1px solid gray;
 }
 
+.data-visualization {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .job-listings {
   width: 66%;
   border: 1px solid gray;
