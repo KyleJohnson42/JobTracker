@@ -5,6 +5,7 @@ const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
   const jobSchema = new mongoose.Schema({
+    username: String,
     title: String,
     company: String,
     link: String,
@@ -18,8 +19,9 @@ db.once('open', function() {
 
   const Job = mongoose.model('Job', jobSchema);
 
-  db.getAllJobs = callback => {
-    Job.find({})
+  db.getAllJobs = (username, callback) => {
+    console.log(username);
+    Job.find({username: username})
     .then(results => callback(null, results))
     .catch(error => callback(error, null));
   }

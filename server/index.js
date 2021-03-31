@@ -9,8 +9,8 @@ const app = express();
 app.use(express.static(path.join(__dirname, '..', 'public')));
 app.use(express.json());
 
-app.get('/api/jobs', (req, res) => {
-  db.getAllJobs((err, results) => {
+app.get('/api/jobs/:username', (req, res) => {
+  db.getAllJobs(req.params.username, (err, results) => {
     if (err) {
       res.status(404).send(err);
     } else {

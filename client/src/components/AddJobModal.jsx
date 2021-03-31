@@ -4,6 +4,7 @@ class AddJobModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      username: localStorage.getItem('username'),
       title: '',
       company: '',
       link: '',

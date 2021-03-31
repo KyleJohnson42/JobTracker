@@ -30,12 +30,14 @@ class App extends React.Component {
     this.toggleAddJobModal = this.toggleAddJobModal.bind(this);
   }
 
-  getAllJobs(callback = () => {}) {
-    axios.get('/api/jobs')
-    .then(results => this.setState({
-      jobs: results.data
-    }, callback))
-    .catch(error => console.error(error));
+  getAllJobs(username, callback = () => {}) {
+    if (username) {
+      axios.get(`/api/jobs/${username}`)
+      .then(results => this.setState({
+        jobs: results.data
+      }, callback))
+      .catch(error => console.error(error));
+    }
   }
 
   updateMetrics(display = this.state.jobs) {
@@ -141,8 +143,13 @@ class App extends React.Component {
   }
 
   addJob(job) {
+    const { username } = this.state;
+
     axios.post('/api/jobs', job)
-    .then(() => this.getAllJobs(this.updateMetrics))
+    .then(() => {
+      this.getAllJobs(username, this.updateMetrics);
+      this.toggleAddJobModal();
+    })
     .catch(error => console.error(error));
   }
 
@@ -153,7 +160,9 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.getAllJobs(this.updateMetrics);
+    const { username } = this.state;
+
+    this.getAllJobs(username, this.updateMetrics);
   }
 
   render() {
