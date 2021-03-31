@@ -11,7 +11,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: localStorage.username || null,
+      username: localStorage.username || '',
       jobs: [],
       jobsNotYetApplied: [],
       jobsApplied: [],
@@ -24,6 +24,7 @@ class App extends React.Component {
       warningModal: false
     }
 
+    this.logOut = this.logOut.bind(this);
     this.getAllJobs = this.getAllJobs.bind(this);
     this.updateMetrics = this.updateMetrics.bind(this);
     this.handleFilter = this.handleFilter.bind(this);
@@ -34,6 +35,13 @@ class App extends React.Component {
     this.deleteAllJobs = this.deleteAllJobs.bind(this);
     this.toggleAddJobModal = this.toggleAddJobModal.bind(this);
     this.toggleWarningModal = this.toggleWarningModal.bind(this);
+  }
+
+  logOut() {
+    localStorage.setItem('username', '');
+    this.setState({
+      username: ''
+    });
   }
 
   getAllJobs(username, callback = () => {}) {
@@ -240,6 +248,7 @@ class App extends React.Component {
             <div className="buttons">
               <button className="add-job-button" onClick={this.toggleAddJobModal}>Add Job</button>
               <button className="delete-all-jobs-button" onClick={this.toggleWarningModal}>Delete All Jobs</button>
+              <button className="log-out-button" onClick={this.logOut}>Log Out</button>
             </div>
           </React.Fragment>
         }
