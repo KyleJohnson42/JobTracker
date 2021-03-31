@@ -14,6 +14,7 @@ class App extends React.Component {
       username: localStorage.username || '',
       quotes: [],
       quote: { author: '', text: '' },
+      quoteVisible: true,
       jobs: [],
       jobsNotYetApplied: [],
       jobsApplied: [],
@@ -37,6 +38,7 @@ class App extends React.Component {
     this.editJob = this.editJob.bind(this);
     this.deleteJob = this.deleteJob.bind(this);
     this.deleteAllJobs = this.deleteAllJobs.bind(this);
+    this.toggleQuoteVisibility = this.toggleQuoteVisibility.bind(this);
     this.toggleAddJobModal = this.toggleAddJobModal.bind(this);
     this.toggleWarningModal = this.toggleWarningModal.bind(this);
   }
@@ -236,6 +238,12 @@ class App extends React.Component {
     .catch(error => console.error(error));
   }
 
+  toggleQuoteVisibility() {
+    this.setState({
+      quoteVisible: !this.state.quoteVisible
+    });
+  }
+
   toggleAddJobModal() {
     this.setState({
       addJobModal: !this.state.addJobModal
@@ -252,19 +260,27 @@ class App extends React.Component {
     const { username } = this.state;
 
     this.getAllJobs(username, this.updateMetrics);
-    this.getQuotes(username, () => setInterval(this.changeQuote, 5000));
+    this.getQuotes(username, () => {
+      setTimeout(() => {
+        setInterval(this.changeQuote, 13000);
+      }, 3000);
+      setInterval(() => {
+        this.toggleQuoteVisibility();
+        setTimeout(this.toggleQuoteVisibility, 3000);
+      }, 13000);
+    });
   }
 
   render() {
-    const { username, jobs, quote, jobsNotYetApplied, jobsApplied, jobsPhone, jobsInterview, jobsOffer, filters, displayedJobs, addJobModal, warningModal } = this.state;
+    const { username, jobs, quote, quoteVisible, jobsNotYetApplied, jobsApplied, jobsPhone, jobsInterview, jobsOffer, filters, displayedJobs, addJobModal, warningModal } = this.state;
 
     return (
       <React.Fragment>
         {username &&
           <React.Fragment>
             <h1>JobTracker</h1>
-            <h2>{quote.text}</h2>
-            <h3>{`-${quote.author || 'Anonymous'}`}</h3>
+            <h2 className={quoteVisible ? "quote-on" : "quote-off"}>{quote.text}</h2>
+            <h3 className={quoteVisible ? "quote-on" : "quote-off"}>{`-${quote.author || 'Anonymous'}`}</h3>
             <div className="main-display">
               <JobMetrics jobs={jobs.length} jobsNotYetApplied={jobsNotYetApplied.length} jobsApplied={jobsApplied.length} jobsPhone={jobsPhone.length} jobsInterview={jobsInterview.length} jobsOffer={jobsOffer.length} filters={filters} handleFilter={this.handleFilter} />
               <JobListings jobs={displayedJobs} editJob={this.editJob} deleteJob={this.deleteJob} />

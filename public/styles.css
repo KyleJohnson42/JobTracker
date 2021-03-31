@@ -23,6 +23,16 @@ h1, h2, h3 {
   background-color: rgb(0, 0, 0, 50%);
 }
 
+.quote-on {
+  opacity: 1;
+  transition: opacity 3s;
+}
+
+.quote-off {
+  opacity: 0;
+  transition: opacity 3s;
+}
+
 .main-display {
   width: 90%;
   margin-left: 5%;

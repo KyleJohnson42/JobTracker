@@ -7,7 +7,7 @@ const JobMetrics = ({ jobs, jobsNotYetApplied, jobsApplied, jobsPhone, jobsInter
     bindTo: '#chart',
     data: {
       columns: [
-          ['Not Yet Applied', jobsNotYetApplied],
+          ['Not Yet Applied', jobs === 0 ? 1 : jobsNotYetApplied],
           ['Applied', jobsApplied],
           ['Phone Screen', jobsPhone],
           ['Interview', jobsInterview],
@@ -56,7 +56,7 @@ const JobMetrics = ({ jobs, jobsNotYetApplied, jobsApplied, jobsPhone, jobsInter
     donut: {
       title: 'Your Metrics',
       label: {
-        format: v => v
+        format: v => jobs === 0 ? 0 : v
       },
     }
   });
