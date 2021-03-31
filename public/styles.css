@@ -36,21 +36,44 @@ h1, h2, h3 {
   border: 1px solid gray;
 }
 
-.data-visualization, .filters {
+.data-visualization {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
+#chart {
+  width: 100%;
+  height: 250px;
+}
+
+.filters {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 75%;
+  margin: auto;
+}
+
+.filter-off, .filter-on {
+  border: 1px solid gray;
+  padding: 10px;
+  margin: 5px;
+}
+
+.filter-off:hover, .filter-on:hover {
+  background-color: rgb(178, 235, 178);
+}
+
 .filter-off {
   cursor: pointer;
-  transition: color 200ms;
+  transition: background-color 200ms;
 }
 
 .filter-on {
   cursor: pointer;
-  color: green;
-  transition: color 200ms;
+  background-color: lightgreen;
+  transition: background-color 200ms;
 }
 
 .job-listings {

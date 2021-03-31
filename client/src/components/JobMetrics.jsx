@@ -70,17 +70,15 @@ const JobMetrics = ({ jobs, jobsNotYetApplied, jobsApplied, jobsPhone, jobsInter
         <span className="conversion">{`Phone screens to interviews: ${(jobsInterview / jobsPhone * 100 || 0).toFixed(0)}%`}</span>
         <span className="conversion">{`Interviews to offers: ${(jobsOffer / jobsInterview * 100 || 0).toFixed(0)}%`}</span>
       </div>
-      <br />
-      <br />
+      <h3>Filters</h3>
       <div className="filters">
-        <span>Select Filters:</span>
-        <span className={filters.includes('notYetApplied') ? "filter-on" : "filter-off"} onClick={() => handleFilter('notYetApplied')}>Not Yet Applied</span>
-        <span className={filters.includes('applied') ? "filter-on" : "filter-off"} onClick={() => handleFilter('applied')}>Applied</span>
-        <span className={filters.includes('phone') ? "filter-on" : "filter-off"} onClick={() => handleFilter('phone')}>Phone Screen</span>
-        <span className={filters.includes('interview') ? "filter-on" : "filter-off"} onClick={() => handleFilter('interview')}>Interview</span>
-        <span className={filters.includes('offer') ? "filter-on" : "filter-off"} onClick={() => handleFilter('offer')}>Offer</span>
-        <span className={filters.includes('active') ? "filter-on" : "filter-off"} onClick={() => handleFilter('active')}>Active</span>
-        <span className={filters.includes('inactive') ? "filter-on" : "filter-off"} onClick={() => handleFilter('inactive')}>Inactive</span>
+        <div className={filters.includes('notYetApplied') ? "filter-on" : "filter-off"} onClick={() => handleFilter('notYetApplied')}>Not Yet Applied</div>
+        <div className={filters.includes('applied') ? "filter-on" : "filter-off"} onClick={() => handleFilter('applied')}>Applied</div>
+        <div className={filters.includes('phone') ? "filter-on" : "filter-off"} onClick={() => handleFilter('phone')}>Phone Screen</div>
+        <div className={filters.includes('interview') ? "filter-on" : "filter-off"} onClick={() => handleFilter('interview')}>Interview</div>
+        <div className={filters.includes('offer') ? "filter-on" : "filter-off"} onClick={() => handleFilter('offer')}>Offer</div>
+        <div className={filters.includes('active') ? "filter-on" : "filter-off"} onClick={() => handleFilter('active')}>Active</div>
+        <div className={filters.includes('inactive') ? "filter-on" : "filter-off"} onClick={() => handleFilter('inactive')}>Inactive</div>
       </div>
     </div>
   )
