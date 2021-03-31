@@ -21,6 +21,37 @@ const JobMetrics = ({ jobs, jobsNotYetApplied, jobsApplied, jobsPhone, jobsInter
         'Offer': 'gold'
       },
       type: 'donut',
+      onclick: data => {
+        if (data.id === 'Not Yet Applied') {
+          handleFilter('notYetApplied');
+        } else if (data.id === 'Applied') {
+          handleFilter('applied');
+        } else if (data.id === 'Phone Screen') {
+          handleFilter('phone');
+        } else if (data.id === 'Interview') {
+          handleFilter('interview');
+        } else if (data.id === 'Offer') {
+          handleFilter('offer');
+        }
+      }
+    },
+    legend: {
+      item: {
+        onclick: data => {
+          console.log(data);
+          if (data === 'Not Yet Applied') {
+            handleFilter('notYetApplied');
+          } else if (data === 'Applied') {
+            handleFilter('applied');
+          } else if (data === 'Phone Screen') {
+            handleFilter('phone');
+          } else if (data === 'Interview') {
+            handleFilter('interview');
+          } else if (data === 'Offer') {
+            handleFilter('offer');
+          }
+        }
+      }
     },
     donut: {
       title: 'Your Metrics',
