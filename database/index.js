@@ -33,13 +33,19 @@ db.once('open', function() {
   }
 
   db.updateJob = (id, job, callback) => {
-    Job.findOneAndUpdate({ _id: id }, job)
+    Job.updateOne({ _id: id }, job)
     .then(results => callback(null, results))
     .catch(error => callback(error, null));
   }
 
   db.deleteJob = (id, callback) => {
-    Job.findOneAndDelete({ _id: id })
+    Job.deleteOne({ _id: id })
+    .then(results => callback(null, results))
+    .catch(error => callback(error, null));
+  }
+
+  db.deleteAllJobs = (username, callback) => {
+    Job.deleteMany({ username: username })
     .then(results => callback(null, results))
     .catch(error => callback(error, null));
   }

@@ -4,6 +4,7 @@ import axios from 'axios';
 import JobMetrics from './components/JobMetrics.jsx';
 import JobListings from './components/JobListings.jsx';
 import AddJobModal from './components/AddJobModal.jsx';
+import WarningModal from './components/WarningModal.jsx';
 import SignIn from './components/SignIn.jsx';
 
 class App extends React.Component {
@@ -19,7 +20,8 @@ class App extends React.Component {
       jobsOffer: [],
       filters: [],
       displayedJobs: [],
-      addJobModal: false
+      addJobModal: false,
+      warningModal: false
     }
 
     this.getAllJobs = this.getAllJobs.bind(this);
@@ -29,7 +31,9 @@ class App extends React.Component {
     this.addJob = this.addJob.bind(this);
     this.editJob = this.editJob.bind(this);
     this.deleteJob = this.deleteJob.bind(this);
+    this.deleteAllJobs = this.deleteAllJobs.bind(this);
     this.toggleAddJobModal = this.toggleAddJobModal.bind(this);
+    this.toggleWarningModal = this.toggleWarningModal.bind(this);
   }
 
   getAllJobs(username, callback = () => {}) {
@@ -169,8 +173,8 @@ class App extends React.Component {
 
     axios.put(`/api/jobs/${id}`, job)
     .then(() => {
-      this.getAllJobs(username, this.updateMetrics);
       callback();
+      this.getAllJobs(username, this.updateMetrics);
     })
     .catch(error => console.error(error));
   }
@@ -186,9 +190,26 @@ class App extends React.Component {
     .catch(error => console.error(error));
   }
 
+  deleteAllJobs(callback) {
+    const { username } = this.state;
+
+    axios.delete(`/api/jobs/all/${username}`)
+    .then(() => {
+      callback();
+      this.getAllJobs(username, this.updateMetrics);
+    })
+    .catch(error => console.error(error));
+  }
+
   toggleAddJobModal() {
     this.setState({
       addJobModal: !this.state.addJobModal
+    });
+  }
+
+  toggleWarningModal() {
+    this.setState({
+      warningModal: !this.state.warningModal
     });
   }
 
@@ -199,7 +220,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { username, jobs, jobsNotYetApplied, jobsApplied, jobsPhone, jobsInterview, jobsOffer, filters, displayedJobs, addJobModal } = this.state;
+    const { username, jobs, jobsNotYetApplied, jobsApplied, jobsPhone, jobsInterview, jobsOffer, filters, displayedJobs, addJobModal, warningModal } = this.state;
 
     return (
       <React.Fragment>
@@ -213,9 +234,12 @@ class App extends React.Component {
             {addJobModal &&
               <AddJobModal addJob={this.addJob} toggleAddJobModal={this.toggleAddJobModal} />
             }
+            {warningModal &&
+              <WarningModal deleteAllJobs={this.deleteAllJobs} toggleWarningModal={this.toggleWarningModal} />
+            }
             <div className="buttons">
               <button className="add-job-button" onClick={this.toggleAddJobModal}>Add Job</button>
-              <button className="delete-all-jobs-button" onClick={() => {}}>Delete All Jobs</button>
+              <button className="delete-all-jobs-button" onClick={this.toggleWarningModal}>Delete All Jobs</button>
             </div>
           </React.Fragment>
         }

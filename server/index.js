@@ -26,7 +26,7 @@ app.post('/api/jobs', (req, res) => {
     } else {
       res.status(200).send(results)
     }
-  })
+  });
 });
 
 app.put('/api/jobs/:id', (req, res) => {
@@ -36,7 +36,7 @@ app.put('/api/jobs/:id', (req, res) => {
     } else {
       res.status(200).send(results);
     }
-  })
+  });
 });
 
 app.delete('/api/jobs/:id', (req, res) => {
@@ -46,7 +46,17 @@ app.delete('/api/jobs/:id', (req, res) => {
     } else {
       res.status(200).send(results);
     }
-  })
+  });
+});
+
+app.delete('/api/jobs/all/:username', (req, res) => {
+  db.deleteAllJobs(req.params.username, (err, results) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(200).send(results);
+    }
+  });
 });
 
 app.listen(PORT, () => {
