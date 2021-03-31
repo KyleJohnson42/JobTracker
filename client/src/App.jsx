@@ -12,6 +12,8 @@ class App extends React.Component {
     super(props);
     this.state = {
       username: localStorage.username || '',
+      quotes: [],
+      quote: { author: '', text: '' },
       jobs: [],
       jobsNotYetApplied: [],
       jobsApplied: [],
@@ -26,6 +28,8 @@ class App extends React.Component {
 
     this.logOut = this.logOut.bind(this);
     this.getAllJobs = this.getAllJobs.bind(this);
+    this.getQuotes = this.getQuotes.bind(this);
+    this.changeQuote = this.changeQuote.bind(this);
     this.updateMetrics = this.updateMetrics.bind(this);
     this.handleFilter = this.handleFilter.bind(this);
     this.updateDisplay = this.updateDisplay.bind(this);
@@ -47,11 +51,34 @@ class App extends React.Component {
   getAllJobs(username, callback = () => {}) {
     if (username) {
       axios.get(`/api/jobs/${username}`)
-      .then(results => this.setState({
-        jobs: results.data
-      }, callback))
+      .then(results => {
+        this.setState({
+          jobs: results.data
+        }, callback);
+      })
       .catch(error => console.error(error));
     }
+  }
+
+  getQuotes(username, callback) {
+    if (username) {
+      axios.get('https://type.fit/api/quotes')
+      .then(results => {
+        this.setState({
+          quotes: results.data,
+          quote: results.data[Math.floor(Math.random() * results.data.length)]
+        }, callback);
+      })
+      .catch(error => console.error(error));
+    }
+  }
+
+  changeQuote() {
+    const { quotes } = this.state;
+
+    this.setState({
+      quote: quotes[Math.floor(Math.random() * quotes.length)]
+    });
   }
 
   updateMetrics(display = this.state.jobs) {
@@ -225,16 +252,19 @@ class App extends React.Component {
     const { username } = this.state;
 
     this.getAllJobs(username, this.updateMetrics);
+    this.getQuotes(username, () => setInterval(this.changeQuote, 5000));
   }
 
   render() {
-    const { username, jobs, jobsNotYetApplied, jobsApplied, jobsPhone, jobsInterview, jobsOffer, filters, displayedJobs, addJobModal, warningModal } = this.state;
+    const { username, jobs, quote, jobsNotYetApplied, jobsApplied, jobsPhone, jobsInterview, jobsOffer, filters, displayedJobs, addJobModal, warningModal } = this.state;
 
     return (
       <React.Fragment>
         {username &&
           <React.Fragment>
             <h1>JobTracker</h1>
+            <h2>{quote.text}</h2>
+            <h3>{`-${quote.author || 'Anonymous'}`}</h3>
             <div className="main-display">
               <JobMetrics jobs={jobs.length} jobsNotYetApplied={jobsNotYetApplied.length} jobsApplied={jobsApplied.length} jobsPhone={jobsPhone.length} jobsInterview={jobsInterview.length} jobsOffer={jobsOffer.length} filters={filters} handleFilter={this.handleFilter} />
               <JobListings jobs={displayedJobs} editJob={this.editJob} deleteJob={this.deleteJob} />
