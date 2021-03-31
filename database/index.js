@@ -20,7 +20,6 @@ db.once('open', function() {
   const Job = mongoose.model('Job', jobSchema);
 
   db.getAllJobs = (username, callback) => {
-    console.log(username);
     Job.find({username: username})
     .then(results => callback(null, results))
     .catch(error => callback(error, null));

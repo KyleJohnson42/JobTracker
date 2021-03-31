@@ -1,7 +1,7 @@
 import React from 'react';
 
-const ProgressBar = ({ job }) => {
-  let text = '';
+const ProgressBar = ({ job, toggleEditJobModal }) => {
+  let text = 'Not yet applied';
   let barStyle = {
     width: '25%',
     height: '10px',
@@ -25,8 +25,8 @@ const ProgressBar = ({ job }) => {
 
   return (
     <React.Fragment>
-      <div style={barStyle} />
-      <div className="job-stage">{text}</div>
+      <div style={barStyle} onClick={toggleEditJobModal} />
+      <div className="job-stage" onClick={toggleEditJobModal}>{text}</div>
     </React.Fragment>
   )
 }

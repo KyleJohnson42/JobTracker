@@ -27,6 +27,7 @@ class App extends React.Component {
     this.handleFilter = this.handleFilter.bind(this);
     this.updateDisplay = this.updateDisplay.bind(this);
     this.addJob = this.addJob.bind(this);
+    this.editJob = this.editJob.bind(this);
     this.toggleAddJobModal = this.toggleAddJobModal.bind(this);
   }
 
@@ -153,6 +154,10 @@ class App extends React.Component {
     .catch(error => console.error(error));
   }
 
+  editJob(job) {
+    console.log(job);
+  }
+
   toggleAddJobModal() {
     this.setState({
       addJobModal: !this.state.addJobModal
@@ -175,7 +180,7 @@ class App extends React.Component {
             <h1>JobTracker</h1>
             <div className="main-display">
               <JobMetrics jobs={jobs.length} jobsNotYetApplied={jobsNotYetApplied.length} jobsApplied={jobsApplied.length} jobsPhone={jobsPhone.length} jobsInterview={jobsInterview.length} jobsOffer={jobsOffer.length} filters={filters} handleFilter={this.handleFilter} />
-              <JobListings jobs={displayedJobs} />
+              <JobListings jobs={displayedJobs} editJob={this.editJob} />
             </div>
             {addJobModal &&
               <AddJobModal addJob={this.addJob} toggleAddJobModal={this.toggleAddJobModal} />
