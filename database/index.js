@@ -37,6 +37,12 @@ db.once('open', function() {
     .then(results => callback(null, results))
     .catch(error => callback(error, null));
   }
+
+  db.deleteJob = (id, callback) => {
+    Job.findOneAndDelete({ _id: id })
+    .then(results => callback(null, results))
+    .catch(error => callback(error, null));
+  }
 });
 
 module.exports = db;

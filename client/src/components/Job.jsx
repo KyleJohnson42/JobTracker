@@ -20,7 +20,7 @@ class Job extends React.Component {
   }
 
   render() {
-    const { job, editJob } = this.props;
+    const { job, editJob, deleteJob } = this.props;
     const { editJobModal } = this.state;
 
     return (
@@ -30,7 +30,7 @@ class Job extends React.Component {
           <ProgressBar job={job} toggleEditJobModal={this.toggleEditJobModal} />
         </div>
         {editJobModal &&
-          <EditJobModal job={job} editJob={editJob} toggleEditJobModal={this.toggleEditJobModal} />
+          <EditJobModal job={job} editJob={editJob} deleteJob={deleteJob} toggleEditJobModal={this.toggleEditJobModal} />
         }
       </React.Fragment>
     )

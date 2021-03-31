@@ -28,6 +28,7 @@ class App extends React.Component {
     this.updateDisplay = this.updateDisplay.bind(this);
     this.addJob = this.addJob.bind(this);
     this.editJob = this.editJob.bind(this);
+    this.deleteJob = this.deleteJob.bind(this);
     this.toggleAddJobModal = this.toggleAddJobModal.bind(this);
   }
 
@@ -174,6 +175,17 @@ class App extends React.Component {
     .catch(error => console.error(error));
   }
 
+  deleteJob(id, callback) {
+    const { username } = this.state;
+
+    axios.delete(`/api/jobs/${id}`)
+    .then(() => {
+      callback();
+      this.getAllJobs(username, this.updateMetrics);
+    })
+    .catch(error => console.error(error));
+  }
+
   toggleAddJobModal() {
     this.setState({
       addJobModal: !this.state.addJobModal
@@ -196,7 +208,7 @@ class App extends React.Component {
             <h1>JobTracker</h1>
             <div className="main-display">
               <JobMetrics jobs={jobs.length} jobsNotYetApplied={jobsNotYetApplied.length} jobsApplied={jobsApplied.length} jobsPhone={jobsPhone.length} jobsInterview={jobsInterview.length} jobsOffer={jobsOffer.length} filters={filters} handleFilter={this.handleFilter} />
-              <JobListings jobs={displayedJobs} editJob={this.editJob} />
+              <JobListings jobs={displayedJobs} editJob={this.editJob} deleteJob={this.deleteJob} />
             </div>
             {addJobModal &&
               <AddJobModal addJob={this.addJob} toggleAddJobModal={this.toggleAddJobModal} />

@@ -19,6 +19,7 @@ class EditJobModal extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   handleChange(event, field) {
@@ -70,6 +71,13 @@ class EditJobModal extends React.Component {
     editJob(this.state, toggleEditJobModal);
   }
 
+  handleDelete() {
+    const { deleteJob, toggleEditJobModal } = this.props;
+    const { _id } = this.state;
+
+    deleteJob(_id, toggleEditJobModal);
+  }
+
   render() {
     const { editJob, toggleEditJobModal } = this.props;
     const { title, company, link, notes, applied, phone, interview, offer, active } = this.state;
@@ -105,9 +113,9 @@ class EditJobModal extends React.Component {
             <input type="checkbox" name="active" checked={active} onChange={event => { this.handleChange(event, 'active') }}></input>
           </label><br />
           <input type="submit" value="Save Changes"></input>
+          <button onClick={this.handleDelete}>Delete Job</button>
         </form>
         <div className="overlay" onClick={toggleEditJobModal} />
-        <button>Delete Job</button>
       </React.Fragment>
     )
   }

@@ -37,7 +37,17 @@ app.put('/api/jobs/:id', (req, res) => {
       res.status(200).send(results);
     }
   })
-})
+});
+
+app.delete('/api/jobs/:id', (req, res) => {
+  db.deleteJob(req.params.id, (err, results) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(200).send(results);
+    }
+  })
+});
 
 app.listen(PORT, () => {
   console.log(`Listening at localhost:${PORT}!`);
