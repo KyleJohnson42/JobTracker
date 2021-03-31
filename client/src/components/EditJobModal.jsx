@@ -11,7 +11,7 @@ class EditJobModal extends React.Component {
       link: props.job.link,
       notes: props.job.notes,
       applied: props.job.applied,
-      phone: props.job.applied,
+      phone: props.job.phone,
       interview: props.job.interview,
       offer: props.job.offer,
       active: props.job.active
@@ -60,10 +60,10 @@ class EditJobModal extends React.Component {
   }
 
   handleSubmit(event) {
-    const { editJob } = this.props;
+    const { editJob, toggleEditJobModal } = this.props;
 
     event.preventDefault();
-    editJob(this.state);
+    editJob(this.state, toggleEditJobModal);
   }
 
   render() {

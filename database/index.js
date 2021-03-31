@@ -32,6 +32,11 @@ db.once('open', function() {
     .catch(error => callback(error, null));
   }
 
+  db.updateJob = (id, job, callback) => {
+    Job.findOneAndUpdate({ _id: id }, job)
+    .then(results => callback(null, results))
+    .catch(error => callback(error, null));
+  }
 });
 
 module.exports = db;

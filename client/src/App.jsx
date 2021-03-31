@@ -154,8 +154,18 @@ class App extends React.Component {
     .catch(error => console.error(error));
   }
 
-  editJob(job) {
-    console.log(job);
+  editJob(job, callback) {
+    const { username } = this.state;
+
+    let id = job._id;
+    delete job._id;
+
+    axios.put(`/api/jobs/${id}`, job)
+    .then(() => {
+      this.getAllJobs(username, this.updateMetrics);
+      callback();
+    })
+    .catch(error => console.error(error));
   }
 
   toggleAddJobModal() {

@@ -29,6 +29,16 @@ app.post('/api/jobs', (req, res) => {
   })
 });
 
+app.put('/api/jobs/:id', (req, res) => {
+  db.updateJob(req.params.id, req.body, (err, results) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(200).send(results);
+    }
+  })
+})
+
 app.listen(PORT, () => {
   console.log(`Listening at localhost:${PORT}!`);
 });
