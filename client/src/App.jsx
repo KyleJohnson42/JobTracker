@@ -103,6 +103,7 @@ class App extends React.Component {
       return;
     }
 
+    let activeFilter = [];
     let result = [];
     let notYetApplied = filters.includes('notYetApplied');
     let applied = filters.includes('applied');
@@ -115,26 +116,31 @@ class App extends React.Component {
     for (let i = 0; i < jobs.length; i++) {
       let job = jobs[i];
 
+      if ((active && job.active) || (inactive && !job.active) || (!active && !inactive)) {
+        activeFilter.push(job);
+      }
+    }
+
+    if (!offer && !interview && !phone && !applied && !notYetApplied) {
+      this.setState({
+        displayedJobs: activeFilter
+      });
+      return;
+    }
+
+    for (let i = 0; i < activeFilter.length; i++) {
+      let job = activeFilter[i];
+
       if (offer && job.offer) {
-        if ((active && job.active) || (inactive && !job.active) || (!active && !inactive)) {
-          result.push(job);
-        }
+        result.push(job);
       } else if (interview && job.interview && !job.offer) {
-        if ((active && job.active) || (inactive && !job.active) || (!active && !inactive)) {
-          result.push(job);
-        }
+        result.push(job);
       } else if (phone && job.phone && !job.interview) {
-        if ((active && job.active) || (inactive && !job.active) || (!active && !inactive)) {
-          result.push(job);
-        }
+        result.push(job);
       } else if (applied && job.applied && !job.phone) {
-        if ((active && job.active) || (inactive && !job.active) || (!active && !inactive)) {
-          result.push(job);
-        }
-      } else if (!job.applied && notYetApplied) {
-        if ((active && job.active) || (inactive && !job.active) || (!active && !inactive)) {
-          result.push(job);
-        }
+        result.push(job);
+      } else if (notYetApplied && !job.applied ) {
+        result.push(job);
       }
     }
 
