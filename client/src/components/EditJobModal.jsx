@@ -101,13 +101,13 @@ class EditJobModal extends React.Component {
             <input type="checkbox" name="applied" checked={applied} onChange={event => { this.handleChange(event, 'applied') }}></input>
           </label><br />
           <label htmlFor="phone">Have you been asked for a phone screen?
-            <input type="checkbox" name="phone" checked={phone} onChange={event => { this.handleChange(event, 'phone') }}></input>
+            <input type="checkbox" name="phone" checked={phone} disabled={!applied} onChange={event => { this.handleChange(event, 'phone') }}></input>
           </label><br />
           <label htmlFor="interview">Have you been asked for an interview?
-            <input type="checkbox" name="interview" checked={interview} onChange={event => { this.handleChange(event, 'interview') }}></input>
+            <input type="checkbox" name="interview" checked={interview} disabled={!phone} onChange={event => { this.handleChange(event, 'interview') }}></input>
           </label><br />
           <label htmlFor="offer">Have you received an offer?
-            <input type="checkbox" name="offer" checked={offer} onChange={event => { this.handleChange(event, 'offer') }}></input>
+            <input type="checkbox" name="offer" checked={offer} disabled={!interview} onChange={event => { this.handleChange(event, 'offer') }}></input>
           </label><br />
           <label htmlFor="active">Is this posting still active?
             <input type="checkbox" name="active" checked={active} onChange={event => { this.handleChange(event, 'active') }}></input>

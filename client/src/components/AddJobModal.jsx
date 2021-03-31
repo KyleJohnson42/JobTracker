@@ -67,6 +67,7 @@ class AddJobModal extends React.Component {
 
   render() {
     const { addJob, toggleAddJobModal } = this.props;
+    const { applied, phone, interview } = this.state;
 
     return (
       <React.Fragment>
@@ -87,13 +88,13 @@ class AddJobModal extends React.Component {
             <input type="checkbox" name="applied" onChange={event => { this.handleChange(event, 'applied') }}></input>
           </label><br />
           <label htmlFor="phone">Have you been asked for a phone screen?
-            <input type="checkbox" name="phone" onChange={event => { this.handleChange(event, 'phone') }}></input>
+            <input type="checkbox" name="phone" disabled={!applied} onChange={event => { this.handleChange(event, 'phone') }}></input>
           </label><br />
           <label htmlFor="interview">Have you been asked for an interview?
-            <input type="checkbox" name="interview" onChange={event => { this.handleChange(event, 'interview') }}></input>
+            <input type="checkbox" name="interview" disabled={!phone} onChange={event => { this.handleChange(event, 'interview') }}></input>
           </label><br />
           <label htmlFor="offer">Have you received an offer?
-            <input type="checkbox" name="offer" onChange={event => { this.handleChange(event, 'offer') }}></input>
+            <input type="checkbox" name="offer" disabled={!interview} onChange={event => { this.handleChange(event, 'offer') }}></input>
           </label><br />
           <input type="submit"></input>
         </form>
