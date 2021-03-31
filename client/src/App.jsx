@@ -4,11 +4,13 @@ import axios from 'axios';
 import JobMetrics from './components/JobMetrics.jsx';
 import JobListings from './components/JobListings.jsx';
 import AddJobModal from './components/AddJobModal.jsx';
+import SignIn from './components/SignIn.jsx';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      username: localStorage.username || null,
       jobs: [],
       jobsNotYetApplied: [],
       jobsApplied: [],
@@ -155,22 +157,29 @@ class App extends React.Component {
   }
 
   render() {
-    const { jobs, jobsNotYetApplied, jobsApplied, jobsPhone, jobsInterview, jobsOffer, filters, displayedJobs, addJobModal } = this.state;
+    const { username, jobs, jobsNotYetApplied, jobsApplied, jobsPhone, jobsInterview, jobsOffer, filters, displayedJobs, addJobModal } = this.state;
 
     return (
       <React.Fragment>
-        <h1>JobTracker</h1>
-        <div className="main-display">
-          <JobMetrics jobs={jobs.length} jobsNotYetApplied={jobsNotYetApplied.length} jobsApplied={jobsApplied.length} jobsPhone={jobsPhone.length} jobsInterview={jobsInterview.length} jobsOffer={jobsOffer.length} filters={filters} handleFilter={this.handleFilter} />
-          <JobListings jobs={displayedJobs} />
-        </div>
-        {addJobModal &&
-          <AddJobModal addJob={this.addJob} toggleAddJobModal={this.toggleAddJobModal} />
+        {username &&
+          <React.Fragment>
+            <h1>JobTracker</h1>
+            <div className="main-display">
+              <JobMetrics jobs={jobs.length} jobsNotYetApplied={jobsNotYetApplied.length} jobsApplied={jobsApplied.length} jobsPhone={jobsPhone.length} jobsInterview={jobsInterview.length} jobsOffer={jobsOffer.length} filters={filters} handleFilter={this.handleFilter} />
+              <JobListings jobs={displayedJobs} />
+            </div>
+            {addJobModal &&
+              <AddJobModal addJob={this.addJob} toggleAddJobModal={this.toggleAddJobModal} />
+            }
+            <div className="buttons">
+              <button className="add-job-button" onClick={this.toggleAddJobModal}>Add Job</button>
+              <button className="delete-all-jobs-button" onClick={() => {}}>Delete All Jobs</button>
+            </div>
+          </React.Fragment>
         }
-        <div className="buttons">
-          <button className="add-job-button" onClick={this.toggleAddJobModal}>Add Job</button>
-          <button className="delete-all-jobs-button" onClick={() => {}}>Delete All Jobs</button>
-        </div>
+        {!username &&
+          <SignIn />
+        }
       </React.Fragment>
     )
   }
