@@ -36,10 +36,21 @@ h1 {
   border: 1px solid gray;
 }
 
-.data-visualization {
+.data-visualization, .filters {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.filter-off {
+  cursor: pointer;
+  transition: color 200ms;
+}
+
+.filter-on {
+  cursor: pointer;
+  color: green;
+  transition: color 200ms;
 }
 
 .job-listings {

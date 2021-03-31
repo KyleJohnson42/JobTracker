@@ -15,12 +15,15 @@ class App extends React.Component {
       jobsPhone: [],
       jobsInterview: [],
       jobsOffer: [],
+      filters: [],
       displayedJobs: [],
       addJobModal: false
     }
 
     this.getAllJobs = this.getAllJobs.bind(this);
     this.updateMetrics = this.updateMetrics.bind(this);
+    this.handleFilter = this.handleFilter.bind(this);
+    this.updateDisplay = this.updateDisplay.bind(this);
     this.addJob = this.addJob.bind(this);
     this.toggleAddJobModal = this.toggleAddJobModal.bind(this);
   }
@@ -71,6 +74,70 @@ class App extends React.Component {
     });
   }
 
+  handleFilter(filter) {
+    const { filters } = this.state;
+
+    if (filters.includes(filter)) {
+      filters.splice(filters.indexOf(filter), 1);
+    } else {
+      filters.push(filter);
+    }
+
+    this.setState({
+      filters
+    }, this.updateDisplay);
+  }
+
+  updateDisplay() {
+    const { jobs, jobsNotYetApplied, jobsApplied, jobsPhone, jobsInterview, jobsOffer, filters } = this.state;
+
+    if (filters.length === 0) {
+      this.setState({
+        displayedJobs: jobs
+      });
+      return;
+    }
+
+    let result = [];
+    let notYetApplied = filters.includes('notYetApplied');
+    let applied = filters.includes('applied');
+    let phone = filters.includes('phone');
+    let interview = filters.includes('interview');
+    let offer = filters.includes('offer');
+    let active = filters.includes('active');
+    let inactive = filters.includes('inactive');
+
+    for (let i = 0; i < jobs.length; i++) {
+      let job = jobs[i];
+
+      if (offer && job.offer) {
+        if ((active && job.active) || (inactive && !job.active) || (!active && !inactive)) {
+          result.push(job);
+        }
+      } else if (interview && job.interview && !job.offer) {
+        if ((active && job.active) || (inactive && !job.active) || (!active && !inactive)) {
+          result.push(job);
+        }
+      } else if (phone && job.phone && !job.interview) {
+        if ((active && job.active) || (inactive && !job.active) || (!active && !inactive)) {
+          result.push(job);
+        }
+      } else if (applied && job.applied && !job.phone) {
+        if ((active && job.active) || (inactive && !job.active) || (!active && !inactive)) {
+          result.push(job);
+        }
+      } else if (!job.applied && notYetApplied) {
+        if ((active && job.active) || (inactive && !job.active) || (!active && !inactive)) {
+          result.push(job);
+        }
+      }
+    }
+
+    this.setState({
+      displayedJobs: result
+    });
+  }
+
   addJob(job) {
     axios.post('/api/jobs', job)
     .then(() => this.getAllJobs(this.updateMetrics))
@@ -88,13 +155,13 @@ class App extends React.Component {
   }
 
   render() {
-    const { jobs, jobsNotYetApplied, jobsApplied, jobsPhone, jobsInterview, jobsOffer, displayedJobs, addJobModal } = this.state;
+    const { jobs, jobsNotYetApplied, jobsApplied, jobsPhone, jobsInterview, jobsOffer, filters, displayedJobs, addJobModal } = this.state;
 
     return (
       <React.Fragment>
         <h1>JobTracker</h1>
         <div className="main-display">
-          <JobMetrics jobs={jobs.length} jobsNotYetApplied={jobsNotYetApplied.length} jobsApplied={jobsApplied.length} jobsPhone={jobsPhone.length} jobsInterview={jobsInterview.length} jobsOffer={jobsOffer.length} />
+          <JobMetrics jobs={jobs.length} jobsNotYetApplied={jobsNotYetApplied.length} jobsApplied={jobsApplied.length} jobsPhone={jobsPhone.length} jobsInterview={jobsInterview.length} jobsOffer={jobsOffer.length} filters={filters} handleFilter={this.handleFilter} />
           <JobListings jobs={displayedJobs} />
         </div>
         {addJobModal &&
