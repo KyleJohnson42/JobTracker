@@ -56,6 +56,10 @@ class EditJobModal extends React.Component {
       this.setState({
         offer: !this.state.offer
       });
+    } else if (field === 'active') {
+      this.setState({
+        active: !this.state.active
+      });
     }
   }
 
@@ -68,7 +72,7 @@ class EditJobModal extends React.Component {
 
   render() {
     const { editJob, toggleEditJobModal } = this.props;
-    const { title, company, link, notes, applied, phone, interview, offer } = this.state;
+    const { title, company, link, notes, applied, phone, interview, offer, active } = this.state;
 
     return (
       <React.Fragment>
@@ -97,9 +101,13 @@ class EditJobModal extends React.Component {
           <label htmlFor="offer">Have you received an offer?
             <input type="checkbox" name="offer" checked={offer} onChange={event => { this.handleChange(event, 'offer') }}></input>
           </label><br />
+          <label htmlFor="active">Is this posting still active?
+            <input type="checkbox" name="active" checked={active} onChange={event => { this.handleChange(event, 'active') }}></input>
+          </label><br />
           <input type="submit" value="Save Changes"></input>
         </form>
         <div className="overlay" onClick={toggleEditJobModal} />
+        <button>Delete Job</button>
       </React.Fragment>
     )
   }
