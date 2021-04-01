@@ -81,6 +81,10 @@ class EditJobModal extends React.Component {
       this.setState({
         offer: !this.state.offer
       });
+    } else if (field === 'active') {
+      this.setState({
+        active: !this.state.active
+      });
     }
   }
 
