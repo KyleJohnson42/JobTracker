@@ -54,8 +54,28 @@ class App extends React.Component {
     if (username) {
       axios.get(`/api/jobs/${username}`)
       .then(results => {
+        let result = [];
+
+        for (let i = 0; i < 5; i++) {
+          for (let j = 0; j < results.data.length; j++) {
+            let job = results.data[j];
+
+            if (i === 0 && !job.applied) {
+              result.push(job);
+            } else if (i === 1 && job.offer) {
+              result.push(job);
+            } else if (i === 2 && job.interview && !job.offer) {
+              result.push(job);
+            } else if (i === 3 && job.phone && !job.interview) {
+              result.push(job);
+            } else if (i === 4 && job.applied && !job.phone) {
+              result.push(job);
+            }
+          }
+        }
+
         this.setState({
-          jobs: results.data
+          jobs: result
         }, callback);
       })
       .catch(error => console.error(error));
@@ -283,7 +303,7 @@ class App extends React.Component {
             <h3 className={quoteVisible ? "quote-on" : "quote-off"}>{`-${quote.author || 'Anonymous'}`}</h3>
             <div className="main-display">
               <JobMetrics jobs={jobs.length} jobsNotYetApplied={jobsNotYetApplied.length} jobsApplied={jobsApplied.length} jobsPhone={jobsPhone.length} jobsInterview={jobsInterview.length} jobsOffer={jobsOffer.length} filters={filters} handleFilter={this.handleFilter} />
-              <JobListings jobs={displayedJobs} editJob={this.editJob} deleteJob={this.deleteJob} />
+              <JobListings jobs={displayedJobs} toggleAddJobModal={this.toggleAddJobModal} toggleWarningModal={this.toggleWarningModal} logOut={this.logOut} editJob={this.editJob} deleteJob={this.deleteJob} />
             </div>
             {addJobModal &&
               <AddJobModal addJob={this.addJob} toggleAddJobModal={this.toggleAddJobModal} />
@@ -291,11 +311,6 @@ class App extends React.Component {
             {warningModal &&
               <WarningModal deleteAllJobs={this.deleteAllJobs} toggleWarningModal={this.toggleWarningModal} />
             }
-            <div className="buttons">
-              <button className="add-job-button" onClick={this.toggleAddJobModal}>Add Job</button>
-              <button className="delete-all-jobs-button" onClick={this.toggleWarningModal}>Delete All Jobs</button>
-              <button className="log-out-button" onClick={this.logOut}>Log Out</button>
-            </div>
           </React.Fragment>
         }
         {!username &&

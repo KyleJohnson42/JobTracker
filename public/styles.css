@@ -1,5 +1,6 @@
 body {
   font-family: 'Krub', sans-serif;
+  background: linear-gradient(45deg, white, rgb(178, 235, 178));
 }
 
 h1, h2, h3 {
@@ -23,15 +24,24 @@ a:hover {
   transition: color 200ms;
 }
 
+input, textarea {
+  margin-left: 10px;
+}
+
 .modal {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  height: fit-content;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 2;
-  background-color: white;
-  border: 1px solid gray;
+  background: linear-gradient(45deg, white, rgb(178, 235, 178));
+  border: 1px solid green;
   padding: 10px;
+  animation: modalFadeIn 200ms;
 }
 
 .overlay {
@@ -42,6 +52,16 @@ a:hover {
   height: 100%;
   z-index: 1;
   background-color: rgb(0, 0, 0, 50%);
+  animation: modalFadeIn 200ms;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .quote-on {
@@ -58,7 +78,7 @@ a:hover {
   width: 90%;
   margin-left: 5%;
   margin-right: 5%;
-  height: 75vh;
+  height: 100%;
   display: flex;
 }
 
@@ -90,17 +110,17 @@ a:hover {
   margin: auto;
 }
 
-.filter-off, .filter-on {
+.filter-off, .filter-on, .buttons button, input[type=submit], .modal button {
   border: 1px solid gray;
   padding: 10px;
   margin: 5px;
 }
 
-.filter-off:hover, .filter-on:hover {
+.filter-off:hover, .filter-on:hover, .buttons button:hover, input[type=submit]:hover, .modal button:hover {
   background-color: rgb(178, 235, 178);
 }
 
-.filter-off {
+.filter-off, .buttons button, input[type=submit], .modal button {
   cursor: pointer;
   transition: background-color 200ms;
 }
@@ -111,8 +131,13 @@ a:hover {
   transition: background-color 200ms;
 }
 
-.job-listings {
+.job-listings-container {
   width: 66%;
+}
+
+.job-listings {
+  width: 100%;
+  height: 75vh;
   margin-left: 25px;
   overflow: scroll;
   -ms-overflow-style: none;
@@ -151,7 +176,7 @@ a:hover {
   transition: background-color 200ms;
 }
 
-.job-link, .job-stage {
+.job-stage, .job-link {
   width: 33%;
 }
 
@@ -160,9 +185,36 @@ a:hover {
 }
 
 .buttons {
-  width: 90%;
-  margin-left: 5%;
-  margin-right: 5%;
+  width: 100%;
+  margin-bottom: 10px;
   display: flex;
   justify-content: flex-end;
+}
+
+.buttons button, input[type=submit] {
+  background-color: transparent;
+}
+
+.buttons button:hover, input[type=submit]:hover {
+  background-color: lightgreen;
+}
+
+.warning {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20%;
+  height: 20%;
+  text-align: center;
+}
+
+.warning-buttons {
+  display: flex;
+  margin-top: 10px;
+  width: 75%;
+  justify-content: space-around;
+}
+
+.warning-buttons button {
+  width: 35%;
 }

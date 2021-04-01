@@ -13,10 +13,12 @@ class Job extends React.Component {
     this.toggleEditJobModal = this.toggleEditJobModal.bind(this);
   }
 
-  toggleEditJobModal() {
-    this.setState({
-      editJobModal: !this.state.editJobModal
-    });
+  toggleEditJobModal(event) {
+    if (!event || event.target.className !== 'job-link ref') {
+      this.setState({
+        editJobModal: !this.state.editJobModal
+      });
+    }
   }
 
   render() {
@@ -26,7 +28,9 @@ class Job extends React.Component {
     return (
       <React.Fragment>
         <div className={'job ' + (job.active ? 'active ' : 'inactive ') + (job.offer ? 'offer' : '')}>
-          <a href={job.link} className="job-link">{`${job.title} at ${job.company}`}</a>
+          <div className="job-link" onClick={this.toggleEditJobModal}>
+            <a href={job.link} className="job-link ref">{`${job.title} at ${job.company}`}</a>
+          </div>
           <ProgressBar job={job} toggleEditJobModal={this.toggleEditJobModal} />
         </div>
         {editJobModal &&

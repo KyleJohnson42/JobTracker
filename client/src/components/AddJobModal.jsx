@@ -40,17 +40,41 @@ class AddJobModal extends React.Component {
         notes: value
       });
     } else if (field === 'applied') {
-      this.setState({
-        applied: !this.state.applied
-      });
+      if (this.state.applied) {
+        this.setState({
+          applied: false,
+          phone: false,
+          interview: false,
+          offer: false
+        });
+      } else {
+        this.setState({
+          applied: true
+        });
+      }
     } else if (field === 'phone') {
-      this.setState({
-        phone: !this.state.phone
-      });
+      if (this.state.phone) {
+        this.setState({
+          phone: false,
+          interview: false,
+          offer: false
+        });
+      } else {
+        this.setState({
+          phone: true
+        });
+      }
     } else if (field === 'interview') {
-      this.setState({
-        interview: !this.state.interview
-      });
+      if (this.state.interview) {
+        this.setState({
+          interview: false,
+          offer: false
+        });
+      } else {
+        this.setState({
+          interview: true
+        });
+      }
     } else if (field === 'offer') {
       this.setState({
         offer: !this.state.offer
@@ -67,7 +91,7 @@ class AddJobModal extends React.Component {
 
   render() {
     const { addJob, toggleAddJobModal } = this.props;
-    const { applied, phone, interview } = this.state;
+    const { applied, phone, interview, offer } = this.state;
 
     return (
       <React.Fragment>
@@ -85,16 +109,16 @@ class AddJobModal extends React.Component {
             <textarea name="notes" onChange={event => { this.handleChange(event, 'notes') }}></textarea>
           </label><br />
           <label htmlFor="applied">Have you applied to this job?
-            <input type="checkbox" name="applied" onChange={event => { this.handleChange(event, 'applied') }}></input>
+            <input type="checkbox" name="applied" checked={applied} onChange={event => { this.handleChange(event, 'applied') }}></input>
           </label><br />
           <label htmlFor="phone">Have you been asked for a phone screen?
-            <input type="checkbox" name="phone" disabled={!applied} onChange={event => { this.handleChange(event, 'phone') }}></input>
+            <input type="checkbox" name="phone" checked={phone} disabled={!applied} onChange={event => { this.handleChange(event, 'phone') }}></input>
           </label><br />
           <label htmlFor="interview">Have you been asked for an interview?
-            <input type="checkbox" name="interview" disabled={!phone} onChange={event => { this.handleChange(event, 'interview') }}></input>
+            <input type="checkbox" name="interview" checked={interview} disabled={!phone || !applied} onChange={event => { this.handleChange(event, 'interview') }}></input>
           </label><br />
           <label htmlFor="offer">Have you received an offer?
-            <input type="checkbox" name="offer" disabled={!interview} onChange={event => { this.handleChange(event, 'offer') }}></input>
+            <input type="checkbox" name="offer" checked={offer} disabled={!interview || !phone || !applied} onChange={event => { this.handleChange(event, 'offer') }}></input>
           </label><br />
           <input type="submit"></input>
         </form>
