@@ -15,6 +15,7 @@ class Job extends React.Component {
 
   toggleEditJobModal(event) {
     if (!event || event.target.className !== 'job-link ref') {
+      document.body.style.overflow = this.state.editJobModal ? 'scroll' : 'hidden';
       this.setState({
         editJobModal: !this.state.editJobModal
       });

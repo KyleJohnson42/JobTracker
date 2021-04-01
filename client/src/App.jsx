@@ -265,6 +265,7 @@ class App extends React.Component {
 
   deleteJob(id, callback) {
     const { username } = this.state;
+
     callback();
 
     axios.delete(`/api/jobs/${id}`)
@@ -277,9 +278,10 @@ class App extends React.Component {
   deleteAllJobs(callback) {
     const { username } = this.state;
 
+    callback();
+
     axios.delete(`/api/jobs/all/${username}`)
     .then(() => {
-      callback();
       this.getAllJobs(username, this.updateMetrics);
     })
     .catch(error => console.error(error));
@@ -292,12 +294,14 @@ class App extends React.Component {
   }
 
   toggleAddJobModal() {
+    document.body.style.overflow = this.state.addJobModal ? 'scroll' : 'hidden';
     this.setState({
       addJobModal: !this.state.addJobModal
     });
   }
 
   toggleWarningModal() {
+    document.body.style.overflow = this.state.warningModal ? 'scroll' : 'hidden';
     this.setState({
       warningModal: !this.state.warningModal
     });
