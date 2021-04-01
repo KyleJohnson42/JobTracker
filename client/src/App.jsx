@@ -15,6 +15,7 @@ class App extends React.Component {
       quotes: [],
       quote: { author: '', text: '' },
       quoteVisible: true,
+      searchTerm: '',
       jobs: [],
       jobsNotYetApplied: [],
       jobsApplied: [],
@@ -22,6 +23,7 @@ class App extends React.Component {
       jobsInterview: [],
       jobsOffer: [],
       filters: [],
+      filteredJobs: [],
       displayedJobs: [],
       addJobModal: false,
       warningModal: false
@@ -33,6 +35,8 @@ class App extends React.Component {
     this.changeQuote = this.changeQuote.bind(this);
     this.updateMetrics = this.updateMetrics.bind(this);
     this.handleFilter = this.handleFilter.bind(this);
+    this.handleSearchTermChange = this.handleSearchTermChange.bind(this);
+    this.filterBySearchTerm = this.filterBySearchTerm.bind(this);
     this.updateDisplay = this.updateDisplay.bind(this);
     this.addJob = this.addJob.bind(this);
     this.editJob = this.editJob.bind(this);
@@ -103,8 +107,8 @@ class App extends React.Component {
     });
   }
 
-  updateMetrics(display = this.state.jobs) {
-    const { jobs } = this.state;
+  updateMetrics() {
+    const { jobs, searchTerm } = this.state;
 
     let jobsNotYetApplied = [];
     let jobsApplied = [];
@@ -136,9 +140,8 @@ class App extends React.Component {
       jobsApplied,
       jobsPhone,
       jobsInterview,
-      jobsOffer,
-      displayedJobs: display
-    });
+      jobsOffer
+    }, this.updateDisplay);
   }
 
   handleFilter(filter) {
@@ -155,12 +158,36 @@ class App extends React.Component {
     }, this.updateDisplay);
   }
 
+  handleSearchTermChange(event) {
+    this.setState({
+      searchTerm: event.target.value
+    }, this.updateDisplay);
+  }
+
+  filterBySearchTerm(jobs, searchTerm) {
+    let result = [];
+
+    if (!searchTerm) {
+      return jobs;
+    }
+
+    for (let i = 0; i < jobs.length; i++) {
+      let job = jobs[i];
+
+      if (job.title.toLowerCase().includes(searchTerm.toLowerCase()) || job.company.toLowerCase().includes(searchTerm.toLowerCase())) {
+        result.push(job);
+      }
+    }
+
+    return result;
+  }
+
   updateDisplay() {
-    const { jobs, jobsNotYetApplied, jobsApplied, jobsPhone, jobsInterview, jobsOffer, filters } = this.state;
+    const { jobs, searchTerm, jobsNotYetApplied, jobsApplied, jobsPhone, jobsInterview, jobsOffer, filters } = this.state;
 
     if (filters.length === 0) {
       this.setState({
-        displayedJobs: jobs
+        displayedJobs: this.filterBySearchTerm(jobs, searchTerm)
       });
       return;
     }
@@ -185,7 +212,7 @@ class App extends React.Component {
 
     if (!offer && !interview && !phone && !applied && !notYetApplied) {
       this.setState({
-        displayedJobs: activeFilter
+        displayedJobs: this.filterBySearchTerm(activeFilter, searchTerm)
       });
       return;
     }
@@ -207,7 +234,7 @@ class App extends React.Component {
     }
 
     this.setState({
-      displayedJobs: result
+      displayedJobs: this.filterBySearchTerm(result, searchTerm)
     });
   }
 
@@ -238,10 +265,10 @@ class App extends React.Component {
 
   deleteJob(id, callback) {
     const { username } = this.state;
+    callback();
 
     axios.delete(`/api/jobs/${id}`)
     .then(() => {
-      callback();
       this.getAllJobs(username, this.updateMetrics);
     })
     .catch(error => console.error(error));
@@ -303,7 +330,7 @@ class App extends React.Component {
             <h3 className={quoteVisible ? "quote-on" : "quote-off"}>{`-${quote.author || 'Anonymous'}`}</h3>
             <div className="main-display">
               <JobMetrics jobs={jobs.length} jobsNotYetApplied={jobsNotYetApplied.length} jobsApplied={jobsApplied.length} jobsPhone={jobsPhone.length} jobsInterview={jobsInterview.length} jobsOffer={jobsOffer.length} filters={filters} handleFilter={this.handleFilter} />
-              <JobListings jobs={displayedJobs} toggleAddJobModal={this.toggleAddJobModal} toggleWarningModal={this.toggleWarningModal} logOut={this.logOut} editJob={this.editJob} deleteJob={this.deleteJob} />
+              <JobListings jobs={displayedJobs} handleSearchTermChange={this.handleSearchTermChange} toggleAddJobModal={this.toggleAddJobModal} toggleWarningModal={this.toggleWarningModal} logOut={this.logOut} editJob={this.editJob} deleteJob={this.deleteJob} />
             </div>
             {addJobModal &&
               <AddJobModal addJob={this.addJob} toggleAddJobModal={this.toggleAddJobModal} />

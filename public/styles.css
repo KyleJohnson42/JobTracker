@@ -135,6 +135,17 @@ input, textarea {
   width: 66%;
 }
 
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+}
+
+.toolbar form {
+  width: 50%;
+  margin: auto;
+  margin-left: 25px;
+}
+
 .job-listings {
   width: 100%;
   height: 75vh;
@@ -185,7 +196,7 @@ input, textarea {
 }
 
 .buttons {
-  width: 100%;
+  width: 50%;
   margin-bottom: 10px;
   display: flex;
   justify-content: flex-end;
