@@ -53,11 +53,16 @@ const JobMetrics = ({ jobs, jobsNotYetApplied, jobsApplied, jobsPhone, jobsInter
         }
       }
     },
+    tooltip: {
+      format: {
+        value: data => `${data}/${jobs}`
+      }
+    },
     donut: {
       title: 'Your Metrics',
       label: {
         format: v => jobs === 0 ? 0 : v
-      },
+      }
     }
   });
 

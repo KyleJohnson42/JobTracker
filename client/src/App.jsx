@@ -121,16 +121,13 @@ class App extends React.Component {
 
       if (!job.applied) {
         jobsNotYetApplied.push(job);
-      } else {
+      } else if (job.applied && !job.phone) {
         jobsApplied.push(job);
-      }
-      if (job.phone) {
+      } else if (job.phone && !job.interview) {
         jobsPhone.push(job);
-      }
-      if (job.interview) {
+      } else if (job.interview && !job.offer) {
         jobsInterview.push(job);
-      }
-      if (job.offer) {
+      } else if (job.offer) {
         jobsOffer.push(job);
       }
     }
