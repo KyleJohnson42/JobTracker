@@ -1,5 +1,26 @@
+body {
+  font-family: 'Krub', sans-serif;
+}
+
 h1, h2, h3 {
   text-align: center;
+  font-family: 'Lora', serif;
+}
+
+h2, h3 {
+  font-size: medium;
+}
+
+a {
+  margin: auto;
+  color: black;
+  text-decoration: none;
+  transition: color 200ms;
+}
+
+a:hover {
+  color: green;
+  transition: color 200ms;
 }
 
 .modal {
@@ -43,7 +64,7 @@ h1, h2, h3 {
 
 .job-metrics {
   width: 33%;
-  border: 1px solid gray;
+  border-right: 1px solid gray;
 }
 
 .data-visualization {
@@ -55,6 +76,10 @@ h1, h2, h3 {
 #chart {
   width: 100%;
   height: 250px;
+}
+
+.c3-chart-arc path {
+  stroke: green;
 }
 
 .filters {
@@ -88,7 +113,7 @@ h1, h2, h3 {
 
 .job-listings {
   width: 66%;
-  border: 1px solid gray;
+  margin-left: 25px;
   overflow: scroll;
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -102,17 +127,36 @@ h1, h2, h3 {
   background-color: darkgray;
 }
 
+.offer {
+  background-color: rgb(255, 235, 124);
+}
+
 .job {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
   height: 40px;
-  border: 1px solid gray;
+  border-top: 1px solid gray;
+  transition: background-color 200ms;
+}
+
+.job:last-child {
+  border-bottom: 1px solid gray;
+}
+
+.job:hover {
+  cursor: pointer;
+  background-color: rgb(178, 235, 178);
+  transition: background-color 200ms;
 }
 
 .job-link, .job-stage {
   width: 33%;
+}
+
+.job-stage {
+  margin: auto;
 }
 
 .buttons {

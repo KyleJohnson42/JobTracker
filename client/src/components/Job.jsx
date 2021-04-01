@@ -25,7 +25,7 @@ class Job extends React.Component {
 
     return (
       <React.Fragment>
-        <div className={job.active ? 'active job' : 'inactive job'}>
+        <div className={'job ' + (job.active ? 'active ' : 'inactive ') + (job.offer ? 'offer' : '')}>
           <a href={job.link} className="job-link">{`${job.title} at ${job.company}`}</a>
           <ProgressBar job={job} toggleEditJobModal={this.toggleEditJobModal} />
         </div>

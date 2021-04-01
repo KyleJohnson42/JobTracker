@@ -14,11 +14,11 @@ const JobMetrics = ({ jobs, jobsNotYetApplied, jobsApplied, jobsPhone, jobsInter
           ['Offer', jobsOffer]
       ],
       colors: {
-        'Not Yet Applied': 'blue',
-        'Applied': 'red',
-        'Phone Screen': 'green',
-        'Interview': 'yellow',
-        'Offer': 'gold'
+        'Not Yet Applied': 'lightGray',
+        'Applied': 'rgb(178, 235, 178)',
+        'Phone Screen': 'rgb(123, 253, 123)',
+        'Interview': 'rgb(0, 226, 0)',
+        'Offer': 'rgb(255, 235, 124)'
       },
       type: 'donut',
       onclick: data => {
@@ -66,9 +66,9 @@ const JobMetrics = ({ jobs, jobsNotYetApplied, jobsApplied, jobsPhone, jobsInter
       <div className="data-visualization">
         <div id="chart"></div>
         <h3>Conversion Rates</h3>
-        <span className="conversion">{`Applications to phone screens: ${(jobsPhone / jobsApplied * 100 || 0).toFixed(0)}%`}</span>
-        <span className="conversion">{`Phone screens to interviews: ${(jobsInterview / jobsPhone * 100 || 0).toFixed(0)}%`}</span>
-        <span className="conversion">{`Interviews to offers: ${(jobsOffer / jobsInterview * 100 || 0).toFixed(0)}%`}</span>
+        <span className="conversion">Applications to phone screens: <strong>{`${(jobsPhone / jobsApplied * 100 || 0).toFixed(0)}%`}</strong></span>
+        <span className="conversion">Phone screens to interviews: <strong>{`${(jobsInterview / jobsPhone * 100 || 0).toFixed(0)}%`}</strong></span>
+        <span className="conversion">Interviews to offers: <strong>{`${(jobsOffer / jobsInterview * 100 || 0).toFixed(0)}%`}</strong></span>
       </div>
       <h3>Filters</h3>
       <div className="filters">

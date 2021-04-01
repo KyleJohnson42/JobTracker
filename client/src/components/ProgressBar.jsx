@@ -5,22 +5,22 @@ const ProgressBar = ({ job, toggleEditJobModal }) => {
   let barStyle = {
     width: '25%',
     height: '10px',
-    background: 'gray',
+    background: 'lightGray',
     transform: 'translateY(10%)'
   };
 
   if (job.offer) {
     text = 'Received offer!';
-    barStyle.background = 'green';
+    barStyle.background = 'rgb(123, 253, 123)';
   } else if (job.interview) {
     text = 'Asked for interview';
-    barStyle.background = 'linear-gradient(to right, green 75%, gray 75% 100%)';
+    barStyle.background = 'linear-gradient(to right, rgb(123, 253, 123) 75%, lightGray 75% 100%)';
   } else if (job.phone) {
     text = 'Asked for phone screen';
-    barStyle.background = 'linear-gradient(to right, green 50%, gray 50% 100%)';
+    barStyle.background = 'linear-gradient(to right, rgb(123, 253, 123) 50%, lightGray 50% 100%)';
   } else if (job.applied) {
     text = 'Applied';
-    barStyle.background = 'linear-gradient(to right, green 25%, gray 25% 100%)';
+    barStyle.background = 'linear-gradient(to right, rgb(123, 253, 123) 25%, lightGray 25% 100%)';
   }
 
   return (
